@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@layer base {
+  html,
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #0f172a;
+    background-color: #161616;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  input,
+  textarea {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes circle-wiggle {
+  0% {
+    transform: rotate(-3.2deg);
+  }
+  50% {
+    transform: rotate(3.2deg);
+  }
+  100% {
+    transform: rotate(-3.2deg);
+  }
+}
+
+.animate-wiggle {
+  animation: circle-wiggle 0.26s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media print {
+  body {
+    background-color: #ffffff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-container {
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

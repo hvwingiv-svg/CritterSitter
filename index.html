@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function () {
+        var OrigWebSocket = window.WebSocket;
+        if (!OrigWebSocket) return;
+        function PatchedWebSocket(url, protocols) {
+          var protoStr = Array.isArray(protocols)
+            ? protocols.join(',')
+            : String(protocols || '');
+          if (
+            protoStr.indexOf('vite-hmr') !== -1 ||
+            protoStr.indexOf('vite-ping') !== -1
+          ) {
+            return {
+              url: String(url || ''),
+              readyState: 1,
+              CONNECTING: 0,
+              OPEN: 1,
+              CLOSING: 2,
+              CLOSED: 3,
+              protocol: protoStr,
+              extensions: '',
+              bufferedAmount: 0,
+              binaryType: 'blob',
+              send: function () {},
+              close: function () {},
+              addEventListener: function () {},
+              removeEventListener: function () {},
+              dispatchEvent: function () {
+                return true;
+              },
+            };
+          }
+          return protocols !== undefined
+            ? new OrigWebSocket(url, protocols)
+            : new OrigWebSocket(url);
+        }
+        PatchedWebSocket.prototype = OrigWebSocket.prototype;
+        PatchedWebSocket.CONNECTING = OrigWebSocket.CONNECTING;
+        PatchedWebSocket.OPEN = OrigWebSocket.OPEN;
+        PatchedWebSocket.CLOSING = OrigWebSocket.CLOSING;
+        PatchedWebSocket.CLOSED = OrigWebSocket.CLOSED;
+        window.WebSocket = PatchedWebSocket;
+      })();
+    </script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0d5c46" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="PetCard" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <title>Pet Care Card</title>
+    <meta name="description" content="Pet info card for sitters with feeding, meds, vet, and vaccine records in one tidy shareable page or PDF." />
+    <meta property="og:title" content="Pet Care Card" />
+    <meta property="og:description" content="Pet info card for sitters with feeding, meds, vet, and vaccine records in one tidy shareable page or PDF." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

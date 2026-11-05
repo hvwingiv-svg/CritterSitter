@@ -1,0 +1,6 @@
+{
+  "name": "Pet Care Card",
+  "description": "Pet info card for sitters with feeding, meds, vet, and vaccine records in one tidy shareable page or PDF.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
