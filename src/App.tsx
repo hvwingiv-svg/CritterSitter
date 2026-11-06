@@ -1527,20 +1527,20 @@ export default function App() {
                         damping: 22,
                       }}
                       onClick={() => navigateToScreen('sitter-import', 1)}
-                      className="w-full p-4 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-slate-900 text-left shadow-xs flex items-center gap-3.5 cursor-pointer"
+                      className="w-full p-4 rounded-2xl bg-accent-gradient hover:brightness-95 text-(--cs-on-accent) text-left shadow-md flex items-center gap-3.5 cursor-pointer"
                     >
-                      <div className="w-11 h-11 rounded-full bg-(--cs-accent)/10 flex items-center justify-center shrink-0">
-                        <Users className="w-5 h-5 text-(--cs-accent)" />
+                      <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+                        <Users className="w-5 h-5 text-(--cs-on-accent)" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-bold text-slate-900">
+                        <div className="text-sm font-bold">
                           I&apos;m a Sitter
                         </div>
-                        <div className="text-xs text-slate-500 mt-0.5">
+                        <div className="text-xs text-(--cs-on-accent)/80 mt-0.5">
                           Enter the sitter code sent by the owner
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
+                      <ArrowRight className="w-4 h-4 text-(--cs-on-accent)/80 shrink-0" />
                     </motion.button>
 
                     {cachedSitterCard && (
