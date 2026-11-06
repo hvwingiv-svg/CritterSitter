@@ -1,7 +1,7 @@
 /* GENERATED from design/tokens.json by scripts/sync-tokens.mjs. Do not edit by hand. */
 :root {
-  --cs-app-bg: #161616;
-  --cs-card: #f7f8f7;
+  --cs-app-bg: #ffffff;
+  --cs-card: #ffe9e0;
   --cs-surface: #ffffff;
   --cs-surface-subtle: oklch(0.984 0.003 247.858);
   --cs-surface-muted: oklch(0.968 0.007 247.896);
