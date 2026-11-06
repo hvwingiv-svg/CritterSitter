@@ -87,7 +87,10 @@ function serializeInPage(tokenNames) {
         if (cs.getPropertyValue(`border-${side}-style`) === 'none' || cs.getPropertyValue(`border-${side}-width`) === '0px') continue;
       } else if (p in NUMERIC_DEFAULT ? v === NUMERIC_DEFAULT[p] : DEFAULTS.has(v)) continue;
       if (p === 'display' && v === 'block' && !['span','button','input','label','a','svg'].includes(el.tagName.toLowerCase())) continue;
-      out.push(`${p}: ${COLOR.test(p) ? named(v) : v}`);
+      // Gradients name their stops too, so they follow the named colors.
+      const val = COLOR.test(p) ? named(v)
+        : p === 'background-image' ? v.replace(/(rgba?|oklab|oklch)\([^)]*\)/g, (c) => named(c)) : v;
+      out.push(`${p}: ${val}`);
     }
     for (const p of INHERITED) {
       const v = cs.getPropertyValue(p);

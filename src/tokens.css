@@ -23,6 +23,8 @@
   --cs-scrim: #000000;
   --cs-accent: #0d5c46;
   --cs-accent-hover: #0a4836;
+  --cs-accent-gradient-top: #519a87;
+  --cs-accent-gradient-bottom: #0b5a2f;
   --cs-on-accent: #ffffff;
   --cs-danger: oklch(0.577 0.245 27.325);
   --cs-danger-line: oklch(0.885 0.062 18.334);

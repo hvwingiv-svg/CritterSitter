@@ -1501,7 +1501,7 @@ export default function App() {
                         setSharedSnapshot(null);
                         navigateToScreen('start', 1);
                       }}
-                      className="w-full p-4 rounded-2xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) text-left shadow-md flex items-center gap-3.5 cursor-pointer"
+                      className="w-full p-4 rounded-2xl bg-accent-gradient hover:brightness-95 text-(--cs-on-accent) text-left shadow-md flex items-center gap-3.5 cursor-pointer"
                     >
                       <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
                         <User className="w-5 h-5 text-(--cs-on-accent)" />
@@ -1619,7 +1619,7 @@ export default function App() {
                     transition={{ type: 'spring', stiffness: 420, damping: 22 }}
                     disabled={isLoadingSitterCode}
                     onClick={handleLoadSitterCode}
-                    className="w-full max-w-[260px] py-3 px-4 rounded-2xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) disabled:opacity-60 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                    className="w-full max-w-[260px] py-3 px-4 rounded-2xl bg-accent-gradient hover:brightness-95 disabled:opacity-60 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                   >
                     <span>
                       {isLoadingSitterCode
@@ -3149,7 +3149,7 @@ export default function App() {
                       type="button"
                       whileTap={{ scale: 0.94 }}
                       onClick={() => window.print()}
-                      className="px-3 py-1.5 rounded-xl bg-(--cs-accent) text-(--cs-on-accent) text-xs font-medium flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-xl bg-accent-gradient text-(--cs-on-accent) text-xs font-medium flex items-center gap-1.5 cursor-pointer"
                     >
                       <Printer className="w-3.5 h-3.5" />
                       Print
@@ -3544,7 +3544,7 @@ export default function App() {
                       whileTap={{ scale: 0.97 }}
                       disabled={isGeneratingCode}
                       onClick={handleGenerateSitterCode}
-                      className="w-full py-2.5 px-4 rounded-xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) disabled:opacity-60 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      className="w-full py-2.5 px-4 rounded-xl bg-accent-gradient hover:brightness-95 disabled:opacity-60 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                     >
                       <KeyRound className="w-4 h-4" />
                       <span>
@@ -4404,7 +4404,7 @@ export default function App() {
                   whileTap={{ scale: 0.96 }}
                   transition={{ type: 'spring', stiffness: 420, damping: 22 }}
                   onClick={() => startLiveCamera('environment')}
-                  className="w-full py-3 px-4 rounded-2xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2.5 cursor-pointer"
+                  className="w-full py-3 px-4 rounded-2xl bg-accent-gradient hover:brightness-95 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2.5 cursor-pointer"
                 >
                   <Camera className="w-4 h-4" />
                   Take a photo now

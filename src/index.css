@@ -39,6 +39,11 @@
   --color-amber-950: var(--cs-warning-ink-strong);
 }
 
+/* Primary action buttons: top-to-bottom gradient between two named colors. */
+@utility bg-accent-gradient {
+  background-image: linear-gradient(180deg, var(--cs-accent-gradient-top), var(--cs-accent-gradient-bottom));
+}
+
 @layer base {
   html,
   body {
