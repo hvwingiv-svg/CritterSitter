@@ -362,6 +362,13 @@ export function getDaysUntil(dateStr: string): number | null {
   return Math.round(diffMs / (1000 * 60 * 60 * 24));
 }
 
+/** Read a named color from design/tokens.json (via src/tokens.css) for canvas drawing. */
+function tokenColor(name: string, fallback: string): string {
+  if (typeof document === 'undefined') return fallback;
+  const v = getComputedStyle(document.documentElement).getPropertyValue(`--${name}`).trim();
+  return v || fallback;
+}
+
 export function exportCardAsImage(pets: PetProfile[], included: IncludedSections) {
   const canvas = document.createElement('canvas');
   const width = 800;
@@ -371,25 +378,25 @@ export function exportCardAsImage(pets: PetProfile[], included: IncludedSections
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = tokenColor('cs-surface', '#ffffff');
   ctx.fillRect(0, 0, width, height);
 
-  ctx.fillStyle = '#0d5c46';
+  ctx.fillStyle = tokenColor('cs-accent', '#0d5c46');
   ctx.fillRect(0, 0, width, 12);
 
   let y = 56;
-  ctx.fillStyle = '#0f172a';
+  ctx.fillStyle = tokenColor('cs-ink', '#0f172a');
   ctx.font = 'bold 28px "Plus Jakarta Sans", sans-serif';
   ctx.fillText('Pet Care Card', 48, y);
   y += 36;
 
   const drawWrapped = (label: string, text: string, startY: number): number => {
     if (!text) return startY;
-    ctx.fillStyle = '#0d5c46';
+    ctx.fillStyle = tokenColor('cs-accent', '#0d5c46');
     ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(label, 48, startY);
     let cy = startY + 24;
-    ctx.fillStyle = '#1e293b';
+    ctx.fillStyle = tokenColor('cs-ink-2', '#1e293b');
     ctx.font = '400 16px "Plus Jakarta Sans", sans-serif';
     const words = text.split(' ');
     let line = '';
@@ -411,14 +418,14 @@ export function exportCardAsImage(pets: PetProfile[], included: IncludedSections
   };
 
   for (const pet of pets) {
-    ctx.strokeStyle = '#e2e8f0';
+    ctx.strokeStyle = tokenColor('cs-line', '#e2e8f0');
     ctx.beginPath();
     ctx.moveTo(48, y);
     ctx.lineTo(width - 48, y);
     ctx.stroke();
     y += 36;
 
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = tokenColor('cs-ink', '#0f172a');
     ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
     const subtitle = [pet.age, pet.breed, pet.sexStatus]
       .filter(Boolean)

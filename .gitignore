@@ -9,3 +9,4 @@ coverage/
 .sitter-codes.json
 .gmp_cache/
 
+dist-live/

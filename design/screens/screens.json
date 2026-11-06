@@ -1,0 +1,47 @@
+[
+  {
+    "file": "Screen-Welcome.dc.html",
+    "title": "Welcome",
+    "height": 844
+  },
+  {
+    "file": "Screen-EnterSitterCode.dc.html",
+    "title": "Enter sitter code",
+    "height": 844
+  },
+  {
+    "file": "Screen-ThePaw.dc.html",
+    "title": "The Paw",
+    "height": 844
+  },
+  {
+    "file": "Screen-NamePhoto.dc.html",
+    "title": "Pet name & picture",
+    "height": 844
+  },
+  {
+    "file": "Screen-PetCards.dc.html",
+    "title": "Pet cards",
+    "height": 884
+  },
+  {
+    "file": "Screen-VaccineWeight.dc.html",
+    "title": "Vaccine & weight info",
+    "height": 844
+  },
+  {
+    "file": "Screen-LostPetFlyer.dc.html",
+    "title": "Lost pet flyer",
+    "height": 844
+  },
+  {
+    "file": "Screen-Share.dc.html",
+    "title": "Share",
+    "height": 844
+  },
+  {
+    "file": "Screen-SitterView.dc.html",
+    "title": "What the sitter sees",
+    "height": 1135
+  }
+]

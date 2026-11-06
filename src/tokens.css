@@ -1,0 +1,46 @@
+/* GENERATED from design/tokens.json by scripts/sync-tokens.mjs. Do not edit by hand. */
+:root {
+  --cs-app-bg: #161616;
+  --cs-card: #f7f8f7;
+  --cs-surface: #ffffff;
+  --cs-surface-subtle: oklch(0.984 0.003 247.858);
+  --cs-surface-muted: oklch(0.968 0.007 247.896);
+  --cs-line: oklch(0.929 0.013 255.508);
+  --cs-line-strong: oklch(0.869 0.022 252.894);
+  --cs-ink: oklch(0.208 0.042 265.755);
+  --cs-ink-2: oklch(0.279 0.041 260.031);
+  --cs-ink-3: oklch(0.372 0.044 257.287);
+  --cs-ink-4: oklch(0.446 0.043 257.281);
+  --cs-ink-muted: oklch(0.554 0.046 257.417);
+  --cs-ink-faint: oklch(0.704 0.04 256.788);
+  --cs-chrome-text: oklch(0.922 0 0);
+  --cs-chrome-text-2: oklch(0.87 0 0);
+  --cs-chrome-muted: #a3a3a3;
+  --cs-chrome-surface: oklch(0.269 0 0);
+  --cs-camera-bg: oklch(0.145 0 0);
+  --cs-camera-surface: oklch(0.205 0 0);
+  --cs-camera-control: oklch(0.371 0 0);
+  --cs-scrim: #000000;
+  --cs-accent: #0d5c46;
+  --cs-accent-hover: #0a4836;
+  --cs-on-accent: #ffffff;
+  --cs-danger: oklch(0.577 0.245 27.325);
+  --cs-danger-line: oklch(0.885 0.062 18.334);
+  --cs-danger-bg: oklch(0.971 0.013 17.38);
+  --cs-danger-ink: oklch(0.396 0.141 25.723);
+  --cs-danger-hover: oklch(0.505 0.213 27.518);
+  --cs-danger-soft: oklch(0.704 0.191 22.216);
+  --cs-warning-line: oklch(0.879 0.169 91.605);
+  --cs-warning-line-soft: oklch(0.924 0.12 95.76);
+  --cs-warning-bg: oklch(0.987 0.022 95.28);
+  --cs-warning-ink: oklch(0.414 0.112 45.904);
+  --cs-warning-ink-strong: oklch(0.279 0.077 45.635);
+  --cs-warning-ink-soft: oklch(0.473 0.137 46.201);
+  --cs-warning-ink-muted: oklch(0.555 0.163 48.998);
+  --cs-radius-card: 28px;
+  --cs-radius-lg: 16px;
+  --cs-radius-md: 12px;
+  --cs-radius-sm: 8px;
+  --cs-font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --cs-font-mono: "JetBrains Mono", ui-monospace, monospace;
+}

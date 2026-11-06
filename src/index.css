@@ -1,11 +1,50 @@
 @import "tailwindcss";
+@import "./tokens.css";
+
+/* Every Tailwind color the app uses points at a named color from
+   design/tokens.json (via src/tokens.css), so the design and the app share
+   one palette. Use these Tailwind names or bg-(--cs-*) in new code; never a
+   raw hex value. */
+@theme inline {
+  --color-white: var(--cs-surface);
+  --color-black: var(--cs-scrim);
+  --color-slate-50: var(--cs-surface-subtle);
+  --color-slate-100: var(--cs-surface-muted);
+  --color-slate-200: var(--cs-line);
+  --color-slate-300: var(--cs-line-strong);
+  --color-slate-400: var(--cs-ink-faint);
+  --color-slate-500: var(--cs-ink-muted);
+  --color-slate-600: var(--cs-ink-4);
+  --color-slate-700: var(--cs-ink-3);
+  --color-slate-800: var(--cs-ink-2);
+  --color-slate-900: var(--cs-ink);
+  --color-neutral-200: var(--cs-chrome-text);
+  --color-neutral-300: var(--cs-chrome-text-2);
+  --color-neutral-700: var(--cs-camera-control);
+  --color-neutral-800: var(--cs-chrome-surface);
+  --color-neutral-900: var(--cs-camera-surface);
+  --color-neutral-950: var(--cs-camera-bg);
+  --color-red-50: var(--cs-danger-bg);
+  --color-red-200: var(--cs-danger-line);
+  --color-red-400: var(--cs-danger-soft);
+  --color-red-600: var(--cs-danger);
+  --color-red-700: var(--cs-danger-hover);
+  --color-red-900: var(--cs-danger-ink);
+  --color-amber-50: var(--cs-warning-bg);
+  --color-amber-200: var(--cs-warning-line-soft);
+  --color-amber-300: var(--cs-warning-line);
+  --color-amber-700: var(--cs-warning-ink-muted);
+  --color-amber-800: var(--cs-warning-ink-soft);
+  --color-amber-900: var(--cs-warning-ink);
+  --color-amber-950: var(--cs-warning-ink-strong);
+}
 
 @layer base {
   html,
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #0f172a;
-    background-color: #161616;
+    color: var(--cs-ink);
+    background-color: var(--cs-app-bg);
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;

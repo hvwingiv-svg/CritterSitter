@@ -1341,7 +1341,7 @@ export default function App() {
             whileHover={{ scale: 1.03 }}
             transition={{ type: 'spring', stiffness: 450, damping: 22 }}
             onClick={handleGoForward}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#0d5c46] hover:bg-[#0a4836] text-white text-xs font-medium transition-colors cursor-pointer ml-auto"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) text-xs font-medium transition-colors cursor-pointer ml-auto"
           >
             <span className="truncate max-w-[125px]">
               {nextLabel || 'Next'}
@@ -1358,7 +1358,7 @@ export default function App() {
               setSharedSnapshot(null);
               navigateToScreen('role-select', -1);
             }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#0d5c46] hover:bg-[#0a4836] text-white text-xs font-medium transition-colors cursor-pointer ml-auto"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) text-xs font-medium transition-colors cursor-pointer ml-auto"
           >
             <span>Start screen</span>
             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
@@ -1371,7 +1371,7 @@ export default function App() {
   return (
     <div
       onKeyDown={handleFieldKeyDown}
-      className="min-h-screen bg-[#161616] flex flex-col items-center justify-center px-4 py-6 select-none sm:select-auto"
+      className="min-h-screen bg-(--cs-app-bg) flex flex-col items-center justify-center px-4 py-6 select-none sm:select-auto"
     >
       {gmpQuotaExceeded && (
         <div className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm w-full mb-3 rounded-xl max-w-[380px]">
@@ -1414,7 +1414,7 @@ export default function App() {
       />
 
       {/* Top minimal step indicator & small arrow navigation */}
-      <div className="no-print w-full max-w-[380px] flex items-center justify-between mb-3 px-1 text-[#a3a3a3] text-xs">
+      <div className="no-print w-full max-w-[380px] flex items-center justify-between mb-3 px-1 text-(--cs-chrome-muted) text-xs">
         <div className="flex items-center gap-2">
           {canGoBack && (
             <motion.button
@@ -1443,7 +1443,7 @@ export default function App() {
               transition={{ type: 'spring', stiffness: 450, damping: 22 }}
               onClick={handleGoForward}
               aria-label="Next screen"
-              className="w-8 h-8 rounded-full bg-[#0d5c46] hover:bg-[#0a4836] text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) flex items-center justify-center transition-colors cursor-pointer"
             >
               <ArrowRight className="w-4 h-4" />
             </motion.button>
@@ -1455,7 +1455,7 @@ export default function App() {
       <div
         onPointerDown={handleContainerPointerDown}
         onPointerUp={handleContainerPointerUp}
-        className="print-container w-full max-w-[380px] min-h-[680px] bg-[#f7f8f7] rounded-[28px] shadow-2xl overflow-hidden flex flex-col relative text-slate-900 touch-pan-y"
+        className="print-container w-full max-w-[380px] min-h-[680px] bg-(--cs-card) rounded-[28px] shadow-2xl overflow-hidden flex flex-col relative text-slate-900 touch-pan-y"
       >
         <AnimatePresence
           mode="popLayout"
@@ -1501,20 +1501,20 @@ export default function App() {
                         setSharedSnapshot(null);
                         navigateToScreen('start', 1);
                       }}
-                      className="w-full p-4 rounded-2xl bg-[#0d5c46] hover:bg-[#0a4836] text-white text-left shadow-md flex items-center gap-3.5 cursor-pointer"
+                      className="w-full p-4 rounded-2xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) text-left shadow-md flex items-center gap-3.5 cursor-pointer"
                     >
                       <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
-                        <User className="w-5 h-5 text-white" />
+                        <User className="w-5 h-5 text-(--cs-on-accent)" />
                       </div>
                       <div className="flex-1">
                         <div className="text-sm font-bold">
                           I&apos;m an Owner
                         </div>
-                        <div className="text-xs text-white/80 mt-0.5">
+                        <div className="text-xs text-(--cs-on-accent)/80 mt-0.5">
                           Create or update your pet&apos;s care card
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-white/80 shrink-0" />
+                      <ArrowRight className="w-4 h-4 text-(--cs-on-accent)/80 shrink-0" />
                     </motion.button>
 
                     <motion.button
@@ -1529,8 +1529,8 @@ export default function App() {
                       onClick={() => navigateToScreen('sitter-import', 1)}
                       className="w-full p-4 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-slate-900 text-left shadow-xs flex items-center gap-3.5 cursor-pointer"
                     >
-                      <div className="w-11 h-11 rounded-full bg-[#0d5c46]/10 flex items-center justify-center shrink-0">
-                        <Users className="w-5 h-5 text-[#0d5c46]" />
+                      <div className="w-11 h-11 rounded-full bg-(--cs-accent)/10 flex items-center justify-center shrink-0">
+                        <Users className="w-5 h-5 text-(--cs-accent)" />
                       </div>
                       <div className="flex-1">
                         <div className="text-sm font-bold text-slate-900">
@@ -1551,7 +1551,7 @@ export default function App() {
                           setSharedSnapshot(cachedSitterCard.snapshot);
                           navigateToScreen('sitter-view', 1);
                         }}
-                        className="w-full py-2.5 px-3.5 rounded-xl bg-[#0d5c46]/10 hover:bg-[#0d5c46]/15 border border-[#0d5c46]/25 text-[#0d5c46] text-xs font-semibold flex items-center justify-between gap-2 cursor-pointer"
+                        className="w-full py-2.5 px-3.5 rounded-xl bg-(--cs-accent)/10 hover:bg-(--cs-accent)/15 border border-(--cs-accent)/25 text-(--cs-accent) text-xs font-semibold flex items-center justify-between gap-2 cursor-pointer"
                       >
                         <span className="truncate">
                           Resume saved card:{' '}
@@ -1585,7 +1585,7 @@ export default function App() {
                 </div>
 
                 <div className="flex-1 flex flex-col items-center justify-center space-y-4 py-6">
-                  <div className="w-14 h-14 rounded-full bg-[#0d5c46]/10 flex items-center justify-center text-[#0d5c46]">
+                  <div className="w-14 h-14 rounded-full bg-(--cs-accent)/10 flex items-center justify-center text-(--cs-accent)">
                     <KeyRound className="w-6 h-6" />
                   </div>
 
@@ -1603,7 +1603,7 @@ export default function App() {
                         if (sitterCodeError) setSitterCodeError('');
                       }}
                       placeholder="E.G. 7K4M9P"
-                      className="w-full px-4 py-3 text-center text-lg font-mono font-bold tracking-[0.25em] uppercase bg-white border border-slate-200 rounded-2xl shadow-xs focus:outline-none focus:border-[#0d5c46]"
+                      className="w-full px-4 py-3 text-center text-lg font-mono font-bold tracking-[0.25em] uppercase bg-white border border-slate-200 rounded-2xl shadow-xs focus:outline-none focus:border-(--cs-accent)"
                     />
                     {sitterCodeError && (
                       <p className="text-xs text-red-600 text-center font-medium">
@@ -1619,7 +1619,7 @@ export default function App() {
                     transition={{ type: 'spring', stiffness: 420, damping: 22 }}
                     disabled={isLoadingSitterCode}
                     onClick={handleLoadSitterCode}
-                    className="w-full max-w-[260px] py-3 px-4 rounded-2xl bg-[#0d5c46] hover:bg-[#0a4836] disabled:opacity-60 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                    className="w-full max-w-[260px] py-3 px-4 rounded-2xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) disabled:opacity-60 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                   >
                     <span>
                       {isLoadingSitterCode
@@ -1649,7 +1649,7 @@ export default function App() {
                   <motion.h1
                     layout
                     transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-                    className="text-[22px] font-semibold tracking-tight text-[#111827]"
+                    className="text-[22px] font-semibold tracking-tight text-(--cs-ink)"
                   >
                     Add a pet
                   </motion.h1>
@@ -1769,7 +1769,7 @@ export default function App() {
                                     ? `Open ${slotPet?.name}`
                                     : `Add pet in slot ${idx + 1}`
                                 }
-                                className="w-full h-full rounded-full bg-[#0d5c46] border-[4.5px] border-white shadow-[0_8px_22px_rgba(0,0,0,0.18)] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing focus:outline-none touch-none"
+                                className="w-full h-full rounded-full bg-(--cs-accent) border-[4.5px] border-white shadow-[0_8px_22px_rgba(0,0,0,0.18)] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing focus:outline-none touch-none"
                               >
                                 {hasPhoto ? (
                                   <img
@@ -1781,7 +1781,7 @@ export default function App() {
                                   />
                                 ) : hasName ? (
                                   <span
-                                    className={`px-2.5 font-semibold text-white text-center leading-tight line-clamp-2 break-words pointer-events-none ${
+                                    className={`px-2.5 font-semibold text-(--cs-on-accent) text-center leading-tight line-clamp-2 break-words pointer-events-none ${
                                       isMainPad ? 'text-base' : 'text-xs'
                                     }`}
                                   >
@@ -1791,7 +1791,7 @@ export default function App() {
                                   <Plus
                                     className={`${
                                       isMainPad ? 'w-12 h-12' : 'w-7 h-7'
-                                    } text-white stroke-[2.2] pointer-events-none`}
+                                    } text-(--cs-on-accent) stroke-[2.2] pointer-events-none`}
                                   />
                                 )}
                               </motion.button>
@@ -1816,7 +1816,7 @@ export default function App() {
                                         handleDeleteCircle(e, circle.id)
                                       }
                                       aria-label={`Delete circle ${idx + 1}`}
-                                      className="absolute -top-1 -left-1 w-[28px] h-[28px] rounded-full bg-[#e12d2d] border-[3px] border-white shadow-[0_3px_8px_rgba(0,0,0,0.22)] flex items-center justify-center cursor-pointer z-10 focus:outline-none"
+                                      className="absolute -top-1 -left-1 w-[28px] h-[28px] rounded-full bg-(--cs-danger) border-[3px] border-white shadow-[0_3px_8px_rgba(0,0,0,0.22)] flex items-center justify-center cursor-pointer z-10 focus:outline-none"
                                     >
                                       <span className="w-3 h-[2.5px] bg-white rounded-full block" />
                                     </motion.button>
@@ -1845,9 +1845,9 @@ export default function App() {
                                         aria-label={`Add photo for ${
                                           slotPet?.name || `pet ${idx + 1}`
                                         }`}
-                                        className="absolute -top-1 -right-1 w-[28px] h-[28px] rounded-full bg-[#0d5c46] border-[3px] border-white shadow-[0_3px_8px_rgba(0,0,0,0.22)] flex items-center justify-center cursor-pointer z-10 focus:outline-none"
+                                        className="absolute -top-1 -right-1 w-[28px] h-[28px] rounded-full bg-(--cs-accent) border-[3px] border-white shadow-[0_3px_8px_rgba(0,0,0,0.22)] flex items-center justify-center cursor-pointer z-10 focus:outline-none"
                                       >
-                                        <Camera className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                                        <Camera className="w-3.5 h-3.5 text-(--cs-on-accent) stroke-[2.2]" />
                                       </motion.button>
                                     )}
                                   </>
@@ -1918,9 +1918,9 @@ export default function App() {
                             onPointerDown={(e) => e.stopPropagation()}
                             onClick={handleAddCircleBack}
                             aria-label="Add circle slot"
-                            className="w-full h-full rounded-full bg-[#0d5c46] border-[4.5px] border-white shadow-[0_8px_22px_rgba(0,0,0,0.16)] flex items-center justify-center cursor-pointer focus:outline-none"
+                            className="w-full h-full rounded-full bg-(--cs-accent) border-[4.5px] border-white shadow-[0_8px_22px_rgba(0,0,0,0.16)] flex items-center justify-center cursor-pointer focus:outline-none"
                           >
-                            <Plus className="w-7 h-7 text-white stroke-[2.2] pointer-events-none" />
+                            <Plus className="w-7 h-7 text-(--cs-on-accent) stroke-[2.2] pointer-events-none" />
                           </motion.button>
                         </motion.div>
                       )}
@@ -1958,7 +1958,7 @@ export default function App() {
                         damping: 22,
                       }}
                       onClick={openPhotoSourceMenu}
-                      className="w-28 h-28 rounded-full bg-[#0d5c46] border-[4px] border-white shadow-[0_8px_22px_rgba(0,0,0,0.16)] flex flex-col items-center justify-center text-white overflow-hidden cursor-pointer focus:outline-none"
+                      className="w-28 h-28 rounded-full bg-(--cs-accent) border-[4px] border-white shadow-[0_8px_22px_rgba(0,0,0,0.16)] flex flex-col items-center justify-center text-(--cs-on-accent) overflow-hidden cursor-pointer focus:outline-none"
                     >
                       {currentPet.photoUrl ? (
                         <img
@@ -1982,7 +1982,7 @@ export default function App() {
                         <button
                           type="button"
                           onClick={openPhotoSourceMenu}
-                          className="text-xs font-medium text-[#0d5c46] hover:underline cursor-pointer"
+                          className="text-xs font-medium text-(--cs-accent) hover:underline cursor-pointer"
                         >
                           Change photo
                         </button>
@@ -2014,7 +2014,7 @@ export default function App() {
                         }))
                       }
                       placeholder="Enter pet name"
-                      className="w-full px-4 py-2.5 text-center text-base font-semibold bg-white border border-slate-200 rounded-2xl shadow-xs focus:outline-none focus:border-[#0d5c46]"
+                      className="w-full px-4 py-2.5 text-center text-base font-semibold bg-white border border-slate-200 rounded-2xl shadow-xs focus:outline-none focus:border-(--cs-accent)"
                     />
                   </div>
                 </div>
@@ -2046,7 +2046,7 @@ export default function App() {
                         whileTap={{ scale: 0.92 }}
                         onClick={openPhotoSourceMenu}
                         title="Change pet photo"
-                        className="w-16 h-16 rounded-full bg-[#0d5c46] border-2 border-white shadow-sm flex flex-col items-center justify-center text-white overflow-hidden shrink-0 cursor-pointer"
+                        className="w-16 h-16 rounded-full bg-(--cs-accent) border-2 border-white shadow-sm flex flex-col items-center justify-center text-(--cs-on-accent) overflow-hidden shrink-0 cursor-pointer"
                       >
                         {currentPet.photoUrl ? (
                           <img
@@ -2057,7 +2057,7 @@ export default function App() {
                           />
                         ) : (
                           <>
-                            <Camera className="w-5 h-5 text-white" />
+                            <Camera className="w-5 h-5 text-(--cs-on-accent)" />
                             <span className="text-[10px] mt-0.5">Photo</span>
                           </>
                         )}
@@ -2075,7 +2075,7 @@ export default function App() {
                             }))
                           }
                           placeholder="Pet name"
-                          className="w-full px-2.5 py-1 text-sm font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                          className="w-full px-2.5 py-1 text-sm font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                         />
                         <div className="grid grid-cols-3 gap-1">
                           <input
@@ -2089,7 +2089,7 @@ export default function App() {
                               }))
                             }
                             placeholder="Age"
-                            className="px-2 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:border-[#0d5c46]"
+                            className="px-2 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:border-(--cs-accent)"
                           />
                           <input
                             type="text"
@@ -2102,9 +2102,9 @@ export default function App() {
                               }))
                             }
                             placeholder="Breed"
-                            className="px-2 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:border-[#0d5c46]"
+                            className="px-2 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:border-(--cs-accent)"
                           />
-                          <div className="flex items-center bg-slate-50 border border-slate-200 rounded-md overflow-hidden focus-within:border-[#0d5c46]">
+                          <div className="flex items-center bg-slate-50 border border-slate-200 rounded-md overflow-hidden focus-within:border-(--cs-accent)">
                             <input
                               type="text"
                               inputMode="decimal"
@@ -2146,9 +2146,9 @@ export default function App() {
                               }))
                             }
                             aria-label="Sex and spay/neuter status"
-                            className={`px-2.5 py-0.5 rounded-lg text-[11px] font-semibold border transition-colors cursor-pointer focus:outline-none focus:border-[#0d5c46] ${
+                            className={`px-2.5 py-0.5 rounded-lg text-[11px] font-semibold border transition-colors cursor-pointer focus:outline-none focus:border-(--cs-accent) ${
                               currentPet.sexStatus
-                                ? 'bg-[#0d5c46]/10 text-[#0d5c46] border-[#0d5c46]/30'
+                                ? 'bg-(--cs-accent)/10 text-(--cs-accent) border-(--cs-accent)/30'
                                 : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-300'
                             }`}
                           >
@@ -2184,9 +2184,9 @@ export default function App() {
                               }}
                               aria-label={`Select ${label}`}
                               title={label}
-                              className={`w-12 h-12 rounded-full bg-[#0d5c46] border-2 border-white shadow-sm flex items-center justify-center overflow-hidden shrink-0 transition-all cursor-pointer focus:outline-none ${
+                              className={`w-12 h-12 rounded-full bg-(--cs-accent) border-2 border-white shadow-sm flex items-center justify-center overflow-hidden shrink-0 transition-all cursor-pointer focus:outline-none ${
                                 isSelected
-                                  ? 'ring-2 ring-[#0d5c46] ring-offset-2 scale-105'
+                                  ? 'ring-2 ring-(--cs-accent) ring-offset-2 scale-105'
                                   : 'opacity-75 hover:opacity-100'
                               }`}
                             >
@@ -2198,7 +2198,7 @@ export default function App() {
                                   className="w-full h-full object-cover rounded-full"
                                 />
                               ) : (
-                                <span className="px-1 text-[10px] font-semibold text-white text-center leading-tight line-clamp-2 break-words">
+                                <span className="px-1 text-[10px] font-semibold text-(--cs-on-accent) text-center leading-tight line-clamp-2 break-words">
                                   {label}
                                 </span>
                               )}
@@ -2254,7 +2254,7 @@ export default function App() {
                                 }))
                               }
                               placeholder="Enter feeding schedule, portion sizes, and allergies"
-                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0d5c46]"
+                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-(--cs-accent)"
                             />
                           </div>
                         </motion.div>
@@ -2303,7 +2303,7 @@ export default function App() {
                                 }))
                               }
                               placeholder="Enter medications, dosage, and how to give them"
-                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0d5c46]"
+                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-(--cs-accent)"
                             />
                           </div>
                         </motion.div>
@@ -2352,7 +2352,7 @@ export default function App() {
                                 }))
                               }
                               placeholder="Enter walk schedule, harness/leash notes, and triggers"
-                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0d5c46]"
+                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-(--cs-accent)"
                             />
                           </div>
                         </motion.div>
@@ -2405,7 +2405,7 @@ export default function App() {
                                 }))
                               }
                               placeholder="Enter habits, fears, and what calms your pet down"
-                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0d5c46]"
+                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-(--cs-accent)"
                             />
                           </div>
                         </motion.div>
@@ -2478,7 +2478,7 @@ export default function App() {
                                         p.emergencyAuth,
                                     }))
                                   }
-                                  className="w-full py-1.5 px-2.5 rounded-lg bg-[#0d5c46]/10 hover:bg-[#0d5c46]/15 border border-[#0d5c46]/25 text-[#0d5c46] text-[11px] font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
+                                  className="w-full py-1.5 px-2.5 rounded-lg bg-(--cs-accent)/10 hover:bg-(--cs-accent)/15 border border-(--cs-accent)/25 text-(--cs-accent) text-[11px] font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
                                 >
                                   <Copy className="w-3 h-3" />
                                   <span>
@@ -2501,7 +2501,7 @@ export default function App() {
                                   }))
                                 }
                                 placeholder="Vet name"
-                                className="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                               <input
                                 type="tel"
@@ -2516,7 +2516,7 @@ export default function App() {
                                   }))
                                 }
                                 placeholder="(555) 123-4567"
-                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                             </div>
                             <input
@@ -2530,7 +2530,7 @@ export default function App() {
                                 }))
                               }
                               placeholder="After-hours ER clinic"
-                              className="w-full px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                              className="w-full px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                             />
                             <div className="grid grid-cols-2 gap-2">
                               <input
@@ -2546,7 +2546,7 @@ export default function App() {
                                   }))
                                 }
                                 placeholder="(555) 123-4567"
-                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                               <input
                                 type="text"
@@ -2560,7 +2560,7 @@ export default function App() {
                                   }))
                                 }
                                 placeholder="Chip number"
-                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                             </div>
                             <div className="grid grid-cols-2 gap-2">
@@ -2577,7 +2577,7 @@ export default function App() {
                                   }))
                                 }
                                 placeholder="Backup contact name"
-                                className="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                               <input
                                 type="tel"
@@ -2594,7 +2594,7 @@ export default function App() {
                                   }))
                                 }
                                 placeholder="(555) 123-4567"
-                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="px-2.5 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                             </div>
                             <textarea
@@ -2608,7 +2608,7 @@ export default function App() {
                                 }))
                               }
                               placeholder="If something's wrong (emergency authorization instructions)"
-                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0d5c46]"
+                              className="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-(--cs-accent)"
                             />
                           </div>
                         </motion.div>
@@ -2680,7 +2680,7 @@ export default function App() {
                                           });
                                         }}
                                         placeholder="Vaccine name"
-                                        className="flex-1 px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                        className="flex-1 px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                       />
                                       <input
                                         type="date"
@@ -2696,7 +2696,7 @@ export default function App() {
                                             return { ...p, vaccines: next };
                                           });
                                         }}
-                                        className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                        className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                       />
                                       <button
                                         type="button"
@@ -2747,7 +2747,7 @@ export default function App() {
                                   ],
                                 }))
                               }
-                              className="text-xs font-semibold text-[#0d5c46] hover:underline cursor-pointer"
+                              className="text-xs font-semibold text-(--cs-accent) hover:underline cursor-pointer"
                             >
                               + Add vaccine
                             </button>
@@ -2826,7 +2826,7 @@ export default function App() {
                           }))
                         }
                         placeholder="Pet name"
-                        className="w-full px-2.5 py-1.5 text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                        className="w-full px-2.5 py-1.5 text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                       />
                     </div>
                     <div>
@@ -2845,7 +2845,7 @@ export default function App() {
                           </span>
                         )}
                       </label>
-                      <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden focus-within:border-[#0d5c46]">
+                      <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden focus-within:border-(--cs-accent)">
                         <input
                           type="text"
                           inputMode="decimal"
@@ -2900,7 +2900,7 @@ export default function App() {
                             ],
                           }))
                         }
-                        className="text-xs font-semibold text-[#0d5c46] hover:underline cursor-pointer"
+                        className="text-xs font-semibold text-(--cs-accent) hover:underline cursor-pointer"
                       >
                         + Add vaccine
                       </button>
@@ -2931,7 +2931,7 @@ export default function App() {
                                   });
                                 }}
                                 placeholder="Vaccine name"
-                                className="flex-1 px-2 py-1 text-xs font-medium bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                className="flex-1 px-2 py-1 text-xs font-medium bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                               />
                               <button
                                 type="button"
@@ -3021,7 +3021,7 @@ export default function App() {
                             ],
                           }))
                         }
-                        className="text-xs font-semibold text-[#0d5c46] hover:underline cursor-pointer"
+                        className="text-xs font-semibold text-(--cs-accent) hover:underline cursor-pointer"
                       >
                         + Add weight entry
                       </button>
@@ -3057,7 +3057,7 @@ export default function App() {
                                 }}
                                 className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg"
                               />
-                              <div className="flex-1 flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden focus-within:border-[#0d5c46]">
+                              <div className="flex-1 flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden focus-within:border-(--cs-accent)">
                                 <input
                                   type="text"
                                   inputMode="decimal"
@@ -3149,7 +3149,7 @@ export default function App() {
                       type="button"
                       whileTap={{ scale: 0.94 }}
                       onClick={() => window.print()}
-                      className="px-3 py-1.5 rounded-xl bg-[#0d5c46] text-white text-xs font-medium flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-xl bg-(--cs-accent) text-(--cs-on-accent) text-xs font-medium flex items-center gap-1.5 cursor-pointer"
                     >
                       <Printer className="w-3.5 h-3.5" />
                       Print
@@ -3180,7 +3180,7 @@ export default function App() {
                       whileTap={{ scale: 0.94 }}
                       onClick={openPhotoSourceMenu}
                       title="Click to upload or change photo"
-                      className="w-28 h-28 rounded-full bg-[#0d5c46] text-white flex flex-col items-center justify-center mx-auto overflow-hidden border-2 border-slate-200 cursor-pointer"
+                      className="w-28 h-28 rounded-full bg-(--cs-accent) text-(--cs-on-accent) flex flex-col items-center justify-center mx-auto overflow-hidden border-2 border-slate-200 cursor-pointer"
                     >
                       {currentPet.photoUrl ? (
                         <img
@@ -3211,7 +3211,7 @@ export default function App() {
                           }))
                         }
                         placeholder="Pet name"
-                        className="w-full px-2.5 py-1 text-center text-base font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                        className="w-full px-2.5 py-1 text-center text-base font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                       />
                       <div className="grid grid-cols-3 gap-1.5">
                         <input
@@ -3225,7 +3225,7 @@ export default function App() {
                             }))
                           }
                           placeholder="Age"
-                          className="px-2 py-1 text-center text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                          className="px-2 py-1 text-center text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                         />
                         <input
                           type="text"
@@ -3238,9 +3238,9 @@ export default function App() {
                             }))
                           }
                           placeholder="Breed"
-                          className="px-2 py-1 text-center text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                          className="px-2 py-1 text-center text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                         />
-                        <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden focus-within:border-[#0d5c46]">
+                        <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg overflow-hidden focus-within:border-(--cs-accent)">
                           <input
                             type="text"
                             inputMode="decimal"
@@ -3282,9 +3282,9 @@ export default function App() {
                             }))
                           }
                           aria-label="Sex and spay/neuter status"
-                          className={`px-3 py-0.5 rounded-lg text-[11px] font-semibold border transition-colors cursor-pointer focus:outline-none focus:border-[#0d5c46] ${
+                          className={`px-3 py-0.5 rounded-lg text-[11px] font-semibold border transition-colors cursor-pointer focus:outline-none focus:border-(--cs-accent) ${
                             currentPet.sexStatus
-                              ? 'bg-[#0d5c46]/10 text-[#0d5c46] border-[#0d5c46]/30'
+                              ? 'bg-(--cs-accent)/10 text-(--cs-accent) border-(--cs-accent)/30'
                               : 'bg-slate-50 text-slate-500 border-slate-200'
                           }`}
                         >
@@ -3308,7 +3308,7 @@ export default function App() {
                         }))
                       }
                       placeholder="Identifying details, collar, or temperament notes"
-                      className="w-full p-2 text-xs text-slate-700 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                      className="w-full p-2 text-xs text-slate-700 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                     />
 
                     <div className="pt-2 border-t border-slate-200 text-xs space-y-2 font-mono text-left">
@@ -3328,7 +3328,7 @@ export default function App() {
                             }))
                           }
                           placeholder="Enter chip number"
-                          className="flex-1 px-2 py-1 text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                          className="flex-1 px-2 py-1 text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                         />
                       </div>
                       <div className="flex items-center gap-2">
@@ -3348,7 +3348,7 @@ export default function App() {
                             }))
                           }
                           placeholder="(555) 123-4567"
-                          className="flex-1 px-2 py-1 text-xs font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                          className="flex-1 px-2 py-1 text-xs font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                         />
                       </div>
                     </div>
@@ -3364,7 +3364,7 @@ export default function App() {
                       }
                       className={`w-full py-2 px-3 rounded-xl text-xs font-bold tracking-wide uppercase transition-colors cursor-pointer ${
                         currentPet.doNotChase
-                          ? 'bg-red-600 text-white shadow-xs'
+                          ? 'bg-red-600 text-(--cs-on-accent) shadow-xs'
                           : 'bg-slate-100 text-slate-500 border border-dashed border-slate-300'
                       }`}
                     >
@@ -3412,7 +3412,7 @@ export default function App() {
                               }
                               className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors cursor-pointer ${
                                 selected
-                                  ? 'bg-[#0d5c46] text-white border-[#0d5c46]'
+                                  ? 'bg-(--cs-accent) text-(--cs-on-accent) border-(--cs-accent)'
                                   : 'bg-white text-slate-700 border-slate-200'
                               }`}
                             >
@@ -3455,7 +3455,7 @@ export default function App() {
                             type="checkbox"
                             checked={shareConfig.included[row.key]}
                             onChange={() => toggleIncludedSection(row.key)}
-                            className="w-4 h-4 accent-[#0d5c46] rounded cursor-pointer"
+                            className="w-4 h-4 accent-(--cs-accent) rounded cursor-pointer"
                           />
                         </label>
                       ))}
@@ -3472,7 +3472,7 @@ export default function App() {
                           stiffness: 380,
                           damping: 26,
                         }}
-                        className="p-3.5 rounded-2xl bg-white border-2 border-[#0d5c46] space-y-3"
+                        className="p-3.5 rounded-2xl bg-white border-2 border-(--cs-accent) space-y-3"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <div>
@@ -3488,7 +3488,7 @@ export default function App() {
                               type="button"
                               whileTap={{ scale: 0.94 }}
                               onClick={handleCopyExistingCode}
-                              className="px-3 py-2 rounded-xl bg-[#0d5c46]/10 hover:bg-[#0d5c46]/20 text-[#0d5c46] text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                              className="px-3 py-2 rounded-xl bg-(--cs-accent)/10 hover:bg-(--cs-accent)/20 text-(--cs-accent) text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                             >
                               {copiedCode ? (
                                 <>
@@ -3544,7 +3544,7 @@ export default function App() {
                       whileTap={{ scale: 0.97 }}
                       disabled={isGeneratingCode}
                       onClick={handleGenerateSitterCode}
-                      className="w-full py-2.5 px-4 rounded-xl bg-[#0d5c46] hover:bg-[#0a4836] disabled:opacity-60 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      className="w-full py-2.5 px-4 rounded-xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) disabled:opacity-60 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                     >
                       <KeyRound className="w-4 h-4" />
                       <span>
@@ -3564,7 +3564,7 @@ export default function App() {
                       }
                       className="w-full py-2.5 px-3 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                     >
-                      <ImageIcon className="w-3.5 h-3.5 text-[#0d5c46]" />
+                      <ImageIcon className="w-3.5 h-3.5 text-(--cs-accent)" />
                       Save Image
                     </motion.button>
 
@@ -3580,7 +3580,7 @@ export default function App() {
                           onClick={handleSaveBackupToPhone}
                           className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-700 text-[11px] font-medium flex items-center justify-center gap-1.5 cursor-pointer"
                         >
-                          <Download className="w-3.5 h-3.5 text-[#0d5c46]" />
+                          <Download className="w-3.5 h-3.5 text-(--cs-accent)" />
                           Save My Pets
                         </motion.button>
                         <motion.button
@@ -3589,12 +3589,12 @@ export default function App() {
                           onClick={() => backupFileInputRef.current?.click()}
                           className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-700 text-[11px] font-medium flex items-center justify-center gap-1.5 cursor-pointer"
                         >
-                          <Upload className="w-3.5 h-3.5 text-[#0d5c46]" />
+                          <Upload className="w-3.5 h-3.5 text-(--cs-accent)" />
                           Bring Back Pets
                         </motion.button>
                       </div>
                       {backupStatusMessage && (
-                        <p className="text-[11px] text-[#0d5c46] font-medium text-center">
+                        <p className="text-[11px] text-(--cs-accent) font-medium text-center">
                           {backupStatusMessage}
                         </p>
                       )}
@@ -3678,7 +3678,7 @@ export default function App() {
                                     if (cId) setActiveCircleId(cId);
                                     openPhotoSourceMenu();
                                   }}
-                                  className="w-11 h-11 rounded-full bg-[#0d5c46] text-white flex items-center justify-center overflow-hidden border border-slate-200 shrink-0 cursor-pointer"
+                                  className="w-11 h-11 rounded-full bg-(--cs-accent) text-(--cs-on-accent) flex items-center justify-center overflow-hidden border border-slate-200 shrink-0 cursor-pointer"
                                   title="Change photo"
                                 >
                                   {pet.photoUrl ? (
@@ -3700,7 +3700,7 @@ export default function App() {
                                   className="w-11 h-11 rounded-full object-cover border border-slate-200 shrink-0"
                                 />
                               ) : (
-                                <div className="w-11 h-11 rounded-full bg-[#0d5c46] text-white text-sm font-bold flex items-center justify-center shrink-0">
+                                <div className="w-11 h-11 rounded-full bg-(--cs-accent) text-(--cs-on-accent) text-sm font-bold flex items-center justify-center shrink-0">
                                   {(pet.name || 'P').slice(0, 1).toUpperCase()}
                                 </div>
                               )}
@@ -3775,7 +3775,7 @@ export default function App() {
                                           }))
                                         }
                                         placeholder="Pet name"
-                                        className="w-full px-2 py-1 text-xs font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:border-[#0d5c46]"
+                                        className="w-full px-2 py-1 text-xs font-bold text-slate-900 bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:border-(--cs-accent)"
                                       />
                                       <div className="grid grid-cols-3 gap-1">
                                         <input
@@ -3789,7 +3789,7 @@ export default function App() {
                                             }))
                                           }
                                           placeholder="Age"
-                                          className="px-1.5 py-0.5 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-[#0d5c46]"
+                                          className="px-1.5 py-0.5 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-(--cs-accent)"
                                         />
                                         <input
                                           type="text"
@@ -3804,9 +3804,9 @@ export default function App() {
                                             }))
                                           }
                                           placeholder="Breed"
-                                          className="px-1.5 py-0.5 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-[#0d5c46]"
+                                          className="px-1.5 py-0.5 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-(--cs-accent)"
                                         />
-                                        <div className="flex items-center bg-slate-50 border border-slate-200 rounded overflow-hidden focus-within:border-[#0d5c46]">
+                                        <div className="flex items-center bg-slate-50 border border-slate-200 rounded overflow-hidden focus-within:border-(--cs-accent)">
                                           <input
                                             type="text"
                                             inputMode="decimal"
@@ -3851,9 +3851,9 @@ export default function App() {
                                             }))
                                           }
                                           aria-label="Sex and spay/neuter status"
-                                          className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border cursor-pointer focus:outline-none focus:border-[#0d5c46] ${
+                                          className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border cursor-pointer focus:outline-none focus:border-(--cs-accent) ${
                                             pet.sexStatus
-                                              ? 'bg-[#0d5c46]/10 text-[#0d5c46] border-[#0d5c46]/30'
+                                              ? 'bg-(--cs-accent)/10 text-(--cs-accent) border-(--cs-accent)/30'
                                               : 'bg-slate-50 text-slate-500 border-slate-200'
                                           }`}
                                         >
@@ -3893,7 +3893,7 @@ export default function App() {
                                               }))
                                             }
                                             placeholder="Add feeding instructions"
-                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                           />
                                         ) : (
                                           <span>{pet.feeding}</span>
@@ -3917,7 +3917,7 @@ export default function App() {
                                               }))
                                             }
                                             placeholder="Add medication instructions"
-                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                           />
                                         ) : (
                                           <span>{pet.meds}</span>
@@ -3941,7 +3941,7 @@ export default function App() {
                                               }))
                                             }
                                             placeholder="Add walk instructions"
-                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                           />
                                         ) : (
                                           <span>{pet.walks}</span>
@@ -3965,7 +3965,7 @@ export default function App() {
                                               }))
                                             }
                                             placeholder="Add quirks & comfort notes"
-                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                            className="w-full p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                           />
                                         ) : (
                                           <span>{pet.quirks}</span>
@@ -3994,7 +3994,7 @@ export default function App() {
                                                   )
                                                 }
                                                 placeholder="Vet name"
-                                                className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                                className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                               />
                                               <input
                                                 type="tel"
@@ -4014,7 +4014,7 @@ export default function App() {
                                                   )
                                                 }
                                                 placeholder="(555) 123-4567"
-                                                className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                                className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                               />
                                             </div>
                                             <div className="grid grid-cols-2 gap-1.5">
@@ -4032,7 +4032,7 @@ export default function App() {
                                                   )
                                                 }
                                                 placeholder="After-hours ER"
-                                                className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                                className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                               />
                                               <input
                                                 type="tel"
@@ -4052,7 +4052,7 @@ export default function App() {
                                                   )
                                                 }
                                                 placeholder="(555) 123-4567"
-                                                className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                                className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                               />
                                             </div>
                                             <div className="grid grid-cols-2 gap-1.5">
@@ -4072,7 +4072,7 @@ export default function App() {
                                                   )
                                                 }
                                                 placeholder="Backup contact"
-                                                className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                                className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                               />
                                               <input
                                                 type="tel"
@@ -4092,7 +4092,7 @@ export default function App() {
                                                   )
                                                 }
                                                 placeholder="(555) 123-4567"
-                                                className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                                className="px-2 py-1 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                               />
                                             </div>
                                           </div>
@@ -4106,7 +4106,7 @@ export default function App() {
                                                   )}`}
                                                   target="_blank"
                                                   rel="noopener noreferrer"
-                                                  className="underline text-[#0d5c46] font-semibold inline-flex items-center gap-0.5"
+                                                  className="underline text-(--cs-accent) font-semibold inline-flex items-center gap-0.5"
                                                 >
                                                   <MapPin className="w-3 h-3 shrink-0" />
                                                   {pet.vetName}
@@ -4125,7 +4125,7 @@ export default function App() {
                                                   )}`}
                                                   target="_blank"
                                                   rel="noopener noreferrer"
-                                                  className="underline text-[#0d5c46] font-semibold inline-flex items-center gap-0.5"
+                                                  className="underline text-(--cs-accent) font-semibold inline-flex items-center gap-0.5"
                                                 >
                                                   <MapPin className="w-3 h-3 shrink-0" />
                                                   {pet.erHospital}
@@ -4165,7 +4165,7 @@ export default function App() {
                                               }))
                                             }
                                             placeholder="Add emergency authorization note"
-                                            className="w-full p-2 text-xs bg-white/90 border border-amber-300 rounded-lg focus:outline-none focus:border-[#0d5c46]"
+                                            className="w-full p-2 text-xs bg-white/90 border border-amber-300 rounded-lg focus:outline-none focus:border-(--cs-accent)"
                                           />
                                         ) : (
                                           <span>{pet.emergencyAuth}</span>
@@ -4199,7 +4199,7 @@ export default function App() {
                                                   })
                                                 )
                                               }
-                                              className="text-[11px] font-semibold text-[#0d5c46] hover:underline cursor-pointer"
+                                              className="text-[11px] font-semibold text-(--cs-accent) hover:underline cursor-pointer"
                                             >
                                               + Add
                                             </button>
@@ -4297,10 +4297,10 @@ export default function App() {
                                             )}`
                                           : undefined
                                       }
-                                      className={`py-2.5 px-2.5 rounded-xl text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
+                                      className={`py-2.5 px-2.5 rounded-xl text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
                                         pet.vetPhone
-                                          ? 'bg-[#0d5c46] hover:bg-[#0a4836] cursor-pointer'
-                                          : 'bg-[#0d5c46]/50 cursor-default'
+                                          ? 'bg-(--cs-accent) hover:bg-(--cs-accent-hover) cursor-pointer'
+                                          : 'bg-(--cs-accent)/50 cursor-default'
                                       }`}
                                     >
                                       <Phone className="w-3.5 h-3.5 shrink-0" />
@@ -4316,7 +4316,7 @@ export default function App() {
                                             )}`
                                           : undefined
                                       }
-                                      className={`py-2.5 px-2.5 rounded-xl text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
+                                      className={`py-2.5 px-2.5 rounded-xl text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
                                         pet.ownerPhone
                                           ? 'bg-slate-900 hover:bg-slate-800 cursor-pointer'
                                           : 'bg-slate-900/50 cursor-default'
@@ -4334,7 +4334,7 @@ export default function App() {
                                           /[^0-9+]/g,
                                           ''
                                         )}`}
-                                        className="py-2.5 px-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                                        className="py-2.5 px-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                                       >
                                         <Phone className="w-3.5 h-3.5 shrink-0" />
                                         <span className="truncate">
@@ -4404,7 +4404,7 @@ export default function App() {
                   whileTap={{ scale: 0.96 }}
                   transition={{ type: 'spring', stiffness: 420, damping: 22 }}
                   onClick={() => startLiveCamera('environment')}
-                  className="w-full py-3 px-4 rounded-2xl bg-[#0d5c46] hover:bg-[#0a4836] text-white text-xs font-semibold flex items-center justify-center gap-2.5 cursor-pointer"
+                  className="w-full py-3 px-4 rounded-2xl bg-(--cs-accent) hover:bg-(--cs-accent-hover) text-(--cs-on-accent) text-xs font-semibold flex items-center justify-center gap-2.5 cursor-pointer"
                 >
                   <Camera className="w-4 h-4" />
                   Take a photo now
@@ -4420,7 +4420,7 @@ export default function App() {
                   }}
                   className="w-full py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold flex items-center justify-center gap-2.5 cursor-pointer"
                 >
-                  <ImageIcon className="w-4 h-4 text-[#0d5c46]" />
+                  <ImageIcon className="w-4 h-4 text-(--cs-accent)" />
                   Choose from gallery
                 </motion.button>
               </motion.div>
@@ -4442,7 +4442,7 @@ export default function App() {
                 stiffness: 360,
                 damping: 28,
               }}
-              className="no-print absolute inset-0 bg-neutral-950 z-40 flex flex-col justify-between p-5 text-white"
+              className="no-print absolute inset-0 bg-neutral-950 z-40 flex flex-col justify-between p-5 text-(--cs-on-accent)"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold tracking-tight text-neutral-200">
@@ -4453,7 +4453,7 @@ export default function App() {
                     type="button"
                     whileTap={{ scale: 0.9 }}
                     onClick={handleFlipCamera}
-                    className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white cursor-pointer"
+                    className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-(--cs-on-accent) cursor-pointer"
                     title="Flip camera"
                     aria-label="Flip camera"
                   >
@@ -4463,7 +4463,7 @@ export default function App() {
                     type="button"
                     whileTap={{ scale: 0.9 }}
                     onClick={stopLiveCamera}
-                    className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white cursor-pointer"
+                    className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-(--cs-on-accent) cursor-pointer"
                     title="Cancel"
                     aria-label="Close camera"
                   >
@@ -4496,8 +4496,8 @@ export default function App() {
                   aria-label="Capture photo"
                   className="w-16 h-16 rounded-full bg-white p-1.5 shadow-lg flex items-center justify-center cursor-pointer"
                 >
-                  <span className="w-full h-full rounded-full bg-[#0d5c46] flex items-center justify-center">
-                    <Camera className="w-6 h-6 text-white" />
+                  <span className="w-full h-full rounded-full bg-(--cs-accent) flex items-center justify-center">
+                    <Camera className="w-6 h-6 text-(--cs-on-accent)" />
                   </span>
                 </motion.button>
               </div>

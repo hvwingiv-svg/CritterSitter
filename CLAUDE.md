@@ -45,7 +45,42 @@ Studio; this repo is now the source of truth — do not assume AI Studio is in s
 - Fonts: Plus Jakarta Sans (UI), JetBrains Mono (codes, phones, chip IDs, dates).
 - Icons: `lucide-react`. Styling: Tailwind CSS v4.
 
+## Code, design and the live page are one system
+
+The code is the source. Three published things are generated from it and must
+stay in step:
+
+- **Design system** (https://claude.ai/artifact/SnNiVyuQka6ZzFEKzfWP1q): the named colors.
+- **Design canvas** (https://claude.ai/artifact/2CBc3zdmiMoPAuPowjUAML): editable, playable screens.
+- **Working app page** (https://claude.ai/artifact/JaBsQ9W1XKjjDZSFKTWpPA): the real app, runnable.
+
+Colors:
+- `design/tokens.json` is the single source of every color (`cs-*` names). Never
+  write a raw hex or a new Tailwind palette color in the code.
+- `npm run tokens` regenerates `src/tokens.css`. `src/index.css` points every
+  Tailwind shade the app uses (`slate-*`, `red-*`, `amber-*`, `neutral-*`,
+  `white`, `black`) at a `cs-*` name; arbitrary colors use `bg-(--cs-accent)`.
+- When the user changes a color in the design system: read its
+  `project/tokens.json`, copy the color values into `design/tokens.json`, then
+  run the sync below.
+
+Sync after any change (code or colors):
+1. `npm run tokens && npm run lint`
+2. `npm run dev`, then `npm run design:screens` (writes `design/screens/`)
+3. `npm run build:live` (writes `dist-live/crittersitter-live.html`)
+4. Publish: tokens to the design system, `design/screens/*` plus a refreshed
+   `ds/crittersitter/` copy to the canvas (read the canvas first and keep the
+   user's edits), the live page to its URL.
+
+Layout or copy edits the user makes on the canvas do not flow back
+automatically: read the changed artboards, make the same change in
+`src/App.tsx`, then sync, which regenerates the canvas from code.
+
 ## Notes
+
+- `.font-mono` currently renders the system monospace, not JetBrains Mono:
+  Tailwind's `font-mono` utility overrides the base-layer rule in
+  `src/index.css`. Fixing it is a visible change; ask first.
 
 - `@google/genai` is a dependency but is not used anywhere yet.
 - Verify UI changes by running the dev server and driving it with Playwright at
