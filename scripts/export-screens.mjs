@@ -66,9 +66,13 @@ function serializeInPage(tokenNames) {
   const INHERITED = ['color','font-family','font-size','font-weight','font-style','line-height','letter-spacing',
     'text-align','text-transform','white-space','text-decoration-line'];
   const COLOR = /(^|-)color$/;
-  const DEFAULTS = new Set(['0px','none','normal','auto','rgba(0, 0, 0, 0)','static','visible','1','0','nowrap',
+  const DEFAULTS = new Set(['0px','none','normal','auto','rgba(0, 0, 0, 0)','static','visible','nowrap',
     'row','stretch','flex-start','start','currentcolor','clip','fill','0% 0%','']);
-  const SIZE_RE = /(^|\s|:)(w-|h-|size-|min-w-|min-h-|max-w-|max-h-|aspect-|inset-|basis-)/;
+  // Properties whose default is a number: compare against their own default,
+  // never a shared list (flex-grow: 1 is meaningful, opacity: 1 is not).
+  const NUMERIC_DEFAULT = { 'flex-grow': '0', 'flex-shrink': '1', 'opacity': '1', 'z-index': 'auto' };
+  const SIZE_RE = /(^|\s|:)(w-|h-|size-|min-w-|min-h-|aspect-|inset-|basis-)/;
+  const FORM = new Set(['input', 'textarea', 'select', 'button']);
   const VOID = new Set(['input','img','br','hr']);
   const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\{\{/g,'{&#123;');
   const attr = (s) => esc(s).replace(/"/g,'&quot;');
@@ -81,14 +85,14 @@ function serializeInPage(tokenNames) {
       if (/^border-(top|right|bottom|left)-(style|color)$/.test(p)) {
         const side = p.split('-')[1];
         if (cs.getPropertyValue(`border-${side}-style`) === 'none' || cs.getPropertyValue(`border-${side}-width`) === '0px') continue;
-      } else if (DEFAULTS.has(v)) continue;
+      } else if (p in NUMERIC_DEFAULT ? v === NUMERIC_DEFAULT[p] : DEFAULTS.has(v)) continue;
       if (p === 'display' && v === 'block' && !['span','button','input','label','a','svg'].includes(el.tagName.toLowerCase())) continue;
-      if (p === 'flex-shrink' && v === '1') continue;
       out.push(`${p}: ${COLOR.test(p) ? named(v) : v}`);
     }
     for (const p of INHERITED) {
       const v = cs.getPropertyValue(p);
-      if (!parentCS || parentCS.getPropertyValue(p) !== v) out.push(`${p}: ${p === 'color' ? named(v) : v}`);
+      // Form controls do not inherit fonts by default outside the app's reset.
+      if (!parentCS || parentCS.getPropertyValue(p) !== v || (FORM.has(el.tagName.toLowerCase()) && p.startsWith('font'))) out.push(`${p}: ${p === 'color' ? named(v) : v}`);
     }
     const cls = el.getAttribute('class') || '';
     const r = el.getBoundingClientRect();
