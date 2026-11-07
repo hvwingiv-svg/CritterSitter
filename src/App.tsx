@@ -1703,20 +1703,35 @@ export default function App() {
                                 damping: 26,
                               },
                             }}
-                            transition={{
-                              type: 'spring',
-                              stiffness: isBeingDragged ? 520 : 300,
-                              damping: isBeingDragged ? 32 : 24,
-                              mass: isBeingDragged ? 0.6 : 0.85,
-                            }}
+                            transition={
+                              isBeingDragged
+                                ? {
+                                    // Follow the finger 1:1 while dragging; only
+                                    // the lift (scale) springs.
+                                    x: { duration: 0 },
+                                    y: { duration: 0 },
+                                    default: {
+                                      type: 'spring',
+                                      stiffness: 520,
+                                      damping: 32,
+                                    },
+                                  }
+                                : {
+                                    type: 'spring',
+                                    stiffness: 300,
+                                    damping: 26,
+                                    mass: 0.85,
+                                  }
+                            }
                             style={{
+                              // A zero-size anchor at the slot's center, so a
+                              // size change grows the circle around its center
+                              // instead of shifting it.
                               position: 'absolute',
                               top: '50%',
                               left: '50%',
-                              width: sizePx,
-                              height: sizePx,
-                              marginTop: -halfPx,
-                              marginLeft: -halfPx,
+                              width: 0,
+                              height: 0,
                               zIndex: isBeingDragged
                                 ? 30
                                 : isMainPad
@@ -1724,8 +1739,20 @@ export default function App() {
                                 : 5,
                             }}
                           >
-                            <div
-                              className={`relative w-full h-full transition-[width,height] duration-200 ${
+                            <motion.div
+                              initial={false}
+                              animate={{
+                                width: sizePx,
+                                height: sizePx,
+                                marginTop: -halfPx,
+                                marginLeft: -halfPx,
+                              }}
+                              transition={{
+                                type: 'spring',
+                                stiffness: 320,
+                                damping: 28,
+                              }}
+                              className={`absolute ${
                                 isWiggling && !isBeingDragged
                                   ? 'animate-wiggle'
                                   : ''
@@ -1791,7 +1818,7 @@ export default function App() {
                                   <Plus
                                     className={`${
                                       isMainPad ? 'w-12 h-12' : 'w-7 h-7'
-                                    } text-(--cs-on-accent) stroke-[2.2] pointer-events-none`}
+                                    } text-(--cs-on-accent) stroke-[2.2] pointer-events-none transition-[width,height] duration-300 ease-out`}
                                   />
                                 )}
                               </motion.button>
@@ -1853,7 +1880,7 @@ export default function App() {
                                   </>
                                 )}
                               </AnimatePresence>
-                            </div>
+                            </motion.div>
                           </motion.div>
                         );
                       })}
