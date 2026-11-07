@@ -431,8 +431,9 @@ export default function App() {
   const [isWiggling, setIsWiggling] = useState(false);
   const longPressTimerRef = useRef<number | null>(null);
   const longPressTriggeredRef = useRef(false);
-  const [draggingCircleId, setDraggingCircleId] = useState<string | null>(null);
-  const [pressedCircleId, setPressedCircleId] = useState<string | null>(null);
+  // Multi-touch: every finger can press or drag its own circle at once.
+  const [draggingCircleIds, setDraggingCircleIds] = useState<string[]>([]);
+  const [pressedCircleIds, setPressedCircleIds] = useState<string[]>([]);
   // Each circle's position lives in motion values, so dragging moves it at
   // the display's frame rate without re-rendering the whole app.
   const circlePosRef = useRef(
@@ -446,7 +447,7 @@ export default function App() {
     }
     return mv;
   };
-  const dragStateRef = useRef<{
+  type CircleDrag = {
     id: string;
     pointerId: number;
     startClientX: number;
@@ -454,7 +455,16 @@ export default function App() {
     originX: number;
     originY: number;
     hasMoved: boolean;
-  } | null>(null);
+  };
+  // One entry per finger on a circle, keyed by pointerId.
+  const dragsRef = useRef(new Map<number, CircleDrag>());
+  // Set after a live swap until React re-renders the new layout, so a second
+  // move event can't swap again against the stale layout.
+  const swapPendingRef = useRef(false);
+  const isCircleHeld = (id: string) => {
+    for (const d of dragsRef.current.values()) if (d.id === id) return true;
+    return false;
+  };
 
   // Edit Card screen: Feeding section open by default, others collapsed
   const [openSection, setOpenSection] = useState<AccordionSection>('feeding');
@@ -836,22 +846,29 @@ export default function App() {
   ) => {
     e.stopPropagation();
     clearLongPressTimer();
-    longPressTriggeredRef.current = false;
+    // A second finger on a circle that is already held is ignored.
+    if (isCircleHeld(circle.id)) return;
+    if (dragsRef.current.size === 0) longPressTriggeredRef.current = false;
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
     } catch {
       // ignore pointer capture errors
     }
-    dragStateRef.current = {
+    // Start from where the circle is drawn right now (it may still be
+    // springing to its slot), so it never jumps under the finger.
+    const mv = getCirclePos(circle.id, pos);
+    dragsRef.current.set(e.pointerId, {
       id: circle.id,
       pointerId: e.pointerId,
       startClientX: e.clientX,
       startClientY: e.clientY,
-      originX: pos.x,
-      originY: pos.y,
+      originX: mv.x.get(),
+      originY: mv.y.get(),
       hasMoved: false,
-    };
-    setPressedCircleId(circle.id);
+    });
+    setPressedCircleIds((prev) => [...prev, circle.id]);
+    // Long-press to edit only makes sense with a single finger down.
+    if (dragsRef.current.size > 1) return;
     longPressTimerRef.current = window.setTimeout(() => {
       longPressTriggeredRef.current = true;
       setIsWiggling(true);
@@ -859,8 +876,8 @@ export default function App() {
   };
 
   const handleCirclePointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
-    const st = dragStateRef.current;
-    if (!st || st.pointerId !== e.pointerId) return;
+    const st = dragsRef.current.get(e.pointerId);
+    if (!st) return;
     const dx = e.clientX - st.startClientX;
     const dy = e.clientY - st.startClientY;
     const dist = Math.hypot(dx, dy);
@@ -868,8 +885,8 @@ export default function App() {
     if (!st.hasMoved && dist > 7) {
       st.hasMoved = true;
       clearLongPressTimer();
-      setPressedCircleId(null);
-      setDraggingCircleId(st.id);
+      setPressedCircleIds((prev) => prev.filter((id) => id !== st.id));
+      setDraggingCircleIds((prev) => [...prev, st.id]);
     }
 
     if (!st.hasMoved) return;
@@ -880,8 +897,9 @@ export default function App() {
     // Check if pointer is close enough to another circle slot to swap positions live
     let swapTargetId: string | null = null;
     let swapTargetPos: PawPosition | null = null;
-    for (const other of circles) {
-      if (other.id === st.id) continue;
+    for (const other of swapPendingRef.current ? [] : circles) {
+      // Circles held by other fingers stay put.
+      if (other.id === st.id || isCircleHeld(other.id)) continue;
       const otherPos = circleLayoutMap.get(other.id);
       if (!otherPos) continue;
       const threshold = otherPos.isMainPad ? 68 : 46;
@@ -900,6 +918,7 @@ export default function App() {
       st.startClientY = e.clientY - (curY - swapTargetPos.y);
       st.originX = swapTargetPos.x;
       st.originY = swapTargetPos.y;
+      swapPendingRef.current = true;
 
       if (targetId === mainPadCircleId) {
         setActiveCircleId(draggedId);
@@ -935,8 +954,8 @@ export default function App() {
     e: React.PointerEvent<HTMLButtonElement>
   ) => {
     clearLongPressTimer();
-    const st = dragStateRef.current;
-    if (st && st.pointerId === e.pointerId) {
+    const st = dragsRef.current.get(e.pointerId);
+    if (st) {
       try {
         if (e.currentTarget.hasPointerCapture(e.pointerId)) {
           e.currentTarget.releasePointerCapture(e.pointerId);
@@ -947,9 +966,9 @@ export default function App() {
       if (st.hasMoved) {
         longPressTriggeredRef.current = true;
       }
-      dragStateRef.current = null;
-      setDraggingCircleId(null);
-      setPressedCircleId(null);
+      dragsRef.current.delete(e.pointerId);
+      setDraggingCircleIds((prev) => prev.filter((id) => id !== st.id));
+      setPressedCircleIds((prev) => prev.filter((id) => id !== st.id));
     }
   };
 
@@ -1330,14 +1349,15 @@ export default function App() {
 
   // Spring every circle that isn't under the finger to its slot.
   useEffect(() => {
+    swapPendingRef.current = false;
     const spring = { type: 'spring', stiffness: 300, damping: 26, mass: 0.85 } as const;
     for (const [id, pos] of circleLayoutMap) {
-      if (id === draggingCircleId || id === dragStateRef.current?.id) continue;
+      if (isCircleHeld(id)) continue;
       const mv = getCirclePos(id, pos);
       if (mv.x.get() !== pos.x) animate(mv.x, pos.x, spring);
       if (mv.y.get() !== pos.y) animate(mv.y, pos.y, spring);
     }
-  }, [circleLayoutMap, draggingCircleId]);
+  }, [circleLayoutMap, draggingCircleIds]);
 
   // Universal Bottom Arrow Navigation Bar rendered on EVERY screen
   const renderBottomNavArrows = () => {
@@ -1703,7 +1723,7 @@ export default function App() {
                         const slotPet = circle.pet;
                         const hasPhoto = Boolean(slotPet?.photoUrl);
                         const hasName = Boolean(slotPet?.name?.trim());
-                        const isBeingDragged = draggingCircleId === circle.id;
+                        const isBeingDragged = draggingCircleIds.includes(circle.id);
                         const circlePos = getCirclePos(circle.id, pos);
 
                         return (
@@ -1777,7 +1797,7 @@ export default function App() {
                                 // when a press turned into a drag.
                                 animate={{
                                   scale:
-                                    pressedCircleId === circle.id && !isWiggling
+                                    pressedCircleIds.includes(circle.id) && !isWiggling
                                       ? 0.92
                                       : 1,
                                 }}
