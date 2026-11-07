@@ -4,7 +4,13 @@
  */
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  motionValue,
+  type MotionValue,
+} from 'motion/react';
 import { QRCodeSVG } from 'qrcode.react';
 import {
   ArrowLeft,
@@ -426,10 +432,20 @@ export default function App() {
   const longPressTimerRef = useRef<number | null>(null);
   const longPressTriggeredRef = useRef(false);
   const [draggingCircleId, setDraggingCircleId] = useState<string | null>(null);
-  const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
+  const [pressedCircleId, setPressedCircleId] = useState<string | null>(null);
+  // Each circle's position lives in motion values, so dragging moves it at
+  // the display's frame rate without re-rendering the whole app.
+  const circlePosRef = useRef(
+    new Map<string, { x: MotionValue<number>; y: MotionValue<number> }>()
+  );
+  const getCirclePos = (id: string, pos: { x: number; y: number }) => {
+    let mv = circlePosRef.current.get(id);
+    if (!mv) {
+      mv = { x: motionValue(pos.x), y: motionValue(pos.y) };
+      circlePosRef.current.set(id, mv);
+    }
+    return mv;
+  };
   const dragStateRef = useRef<{
     id: string;
     pointerId: number;
@@ -835,7 +851,7 @@ export default function App() {
       originY: pos.y,
       hasMoved: false,
     };
-    setDragOffset({ x: 0, y: 0 });
+    setPressedCircleId(circle.id);
     longPressTimerRef.current = window.setTimeout(() => {
       longPressTriggeredRef.current = true;
       setIsWiggling(true);
@@ -852,6 +868,7 @@ export default function App() {
     if (!st.hasMoved && dist > 7) {
       st.hasMoved = true;
       clearLongPressTimer();
+      setPressedCircleId(null);
       setDraggingCircleId(st.id);
     }
 
@@ -883,10 +900,6 @@ export default function App() {
       st.startClientY = e.clientY - (curY - swapTargetPos.y);
       st.originX = swapTargetPos.x;
       st.originY = swapTargetPos.y;
-      setDragOffset({
-        x: curX - swapTargetPos.x,
-        y: curY - swapTargetPos.y,
-      });
 
       if (targetId === mainPadCircleId) {
         setActiveCircleId(draggedId);
@@ -907,8 +920,14 @@ export default function App() {
           pet: c.pet ? { ...c.pet, slotIndex: idx } : null,
         }));
       });
-    } else {
-      setDragOffset({ x: dx, y: dy });
+    }
+
+    const mv = circlePosRef.current.get(st.id);
+    if (mv) {
+      mv.x.stop();
+      mv.y.stop();
+      mv.x.set(curX);
+      mv.y.set(curY);
     }
   };
 
@@ -930,7 +949,7 @@ export default function App() {
       }
       dragStateRef.current = null;
       setDraggingCircleId(null);
-      setDragOffset({ x: 0, y: 0 });
+      setPressedCircleId(null);
     }
   };
 
@@ -1309,6 +1328,17 @@ export default function App() {
     return map;
   }, [circles, mainPadCircleId, pawPositions]);
 
+  // Spring every circle that isn't under the finger to its slot.
+  useEffect(() => {
+    const spring = { type: 'spring', stiffness: 300, damping: 26, mass: 0.85 } as const;
+    for (const [id, pos] of circleLayoutMap) {
+      if (id === draggingCircleId || id === dragStateRef.current?.id) continue;
+      const mv = getCirclePos(id, pos);
+      if (mv.x.get() !== pos.x) animate(mv.x, pos.x, spring);
+      if (mv.y.get() !== pos.y) animate(mv.y, pos.y, spring);
+    }
+  }, [circleLayoutMap, draggingCircleId]);
+
   // Universal Bottom Arrow Navigation Bar rendered on EVERY screen
   const renderBottomNavArrows = () => {
     const prevLabel = prevScreenLabel();
@@ -1674,25 +1704,15 @@ export default function App() {
                         const hasPhoto = Boolean(slotPet?.photoUrl);
                         const hasName = Boolean(slotPet?.name?.trim());
                         const isBeingDragged = draggingCircleId === circle.id;
-                        const targetX =
-                          pos.x + (isBeingDragged ? dragOffset.x : 0);
-                        const targetY =
-                          pos.y + (isBeingDragged ? dragOffset.y : 0);
+                        const circlePos = getCirclePos(circle.id, pos);
 
                         return (
                           <motion.div
                             key={circle.id}
-                            initial={{
-                              scale: 0,
-                              opacity: 0,
-                              x: pos.x,
-                              y: pos.y,
-                            }}
+                            initial={{ scale: 0, opacity: 0 }}
                             animate={{
                               scale: isBeingDragged ? 1.08 : 1,
                               opacity: 1,
-                              x: targetX,
-                              y: targetY,
                             }}
                             exit={{
                               scale: 0,
@@ -1703,26 +1723,11 @@ export default function App() {
                                 damping: 26,
                               },
                             }}
-                            transition={
-                              isBeingDragged
-                                ? {
-                                    // Follow the finger 1:1 while dragging; only
-                                    // the lift (scale) springs.
-                                    x: { duration: 0 },
-                                    y: { duration: 0 },
-                                    default: {
-                                      type: 'spring',
-                                      stiffness: 520,
-                                      damping: 32,
-                                    },
-                                  }
-                                : {
-                                    type: 'spring',
-                                    stiffness: 300,
-                                    damping: 26,
-                                    mass: 0.85,
-                                  }
-                            }
+                            transition={{
+                              type: 'spring',
+                              stiffness: 420,
+                              damping: 28,
+                            }}
                             style={{
                               // A zero-size anchor at the slot's center, so a
                               // size change grows the circle around its center
@@ -1732,6 +1737,8 @@ export default function App() {
                               left: '50%',
                               width: 0,
                               height: 0,
+                              x: circlePos.x,
+                              y: circlePos.y,
                               zIndex: isBeingDragged
                                 ? 30
                                 : isMainPad
@@ -1765,11 +1772,15 @@ export default function App() {
                             >
                               <motion.button
                                 type="button"
-                                whileTap={
-                                  isWiggling || isBeingDragged
-                                    ? undefined
-                                    : { scale: 0.92 }
-                                }
+                                // Press shrink is driven by our own pointer
+                                // handlers: motion's whileTap stuck at 0.92
+                                // when a press turned into a drag.
+                                animate={{
+                                  scale:
+                                    pressedCircleId === circle.id && !isWiggling
+                                      ? 0.92
+                                      : 1,
+                                }}
                                 whileHover={
                                   isWiggling || isBeingDragged
                                     ? undefined
